@@ -6,27 +6,27 @@ import fi.iki.elonen.NanoHTTPD.Response.Status;
 
 public class HttpResult {
 
-	Status status;
+	HttpStatus status;
 	String content;
-	public HttpResult(String content, Status status) {
+	public HttpResult(String content, HttpStatus status) {
 		this.content = content;
 		this.status = status;
 	}
 	
-	public HttpResult(Object content, Status status) {
+	public HttpResult(Object content, HttpStatus status) {
 		this(new Gson().toJson(content), status);
 	}
 	
-	public HttpResult(Status status) {
+	public HttpResult(HttpStatus status) {
 		this(null, status);
 	}
 	
 	public HttpResult(String content) {
-		this(content, Status.OK);
+		this(content, HttpStatus.OK);
 	}
 	
 	public HttpResult(Object content) {
-		this(content, Status.OK);
+		this(content, HttpStatus.OK);
 	}
 	
 }
