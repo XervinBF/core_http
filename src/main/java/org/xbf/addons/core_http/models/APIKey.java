@@ -33,7 +33,7 @@ public class APIKey extends SmartTableObjectNoKey {
 	}
 	
 	public static SmartTable<APIKey> getSmartTable() {
-		return new SmartTable<>("http_server_keys", APIKey.class);
+		return new SmartTable<APIKey>("http_server_keys", APIKey.class);
 	}
 
 	

@@ -20,7 +20,7 @@ public class APIServer extends NanoHTTPD {
 
 	Logger l = (Logger) LoggerFactory.getLogger(APIServer.class);
 	
-	public static ArrayList<HttpHandler> handlers = new ArrayList<>();
+	public static ArrayList<HttpHandler> handlers = new ArrayList<HttpHandler>();
 	
 	public APIServer() {		
 		super(HttpServerPlugin.config.port);
@@ -160,7 +160,7 @@ public class APIServer extends NanoHTTPD {
 							Response res = newFixedLengthResponse(Status.OK, "application/json", new Gson().toJson(o));
 							res.addHeader("Cache-Control", "no-cache");
 							return res;
-						} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						} catch (Exception e) {
 							e.printStackTrace();
 							l.info("Returned 500 (" + (System.currentTimeMillis() - start) + " ms)");
 							Response res = newFixedLengthResponse(Status.INTERNAL_ERROR, "text", "An internal error occured\n" + e.getClass().getSimpleName());

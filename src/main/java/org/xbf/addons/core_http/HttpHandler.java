@@ -25,7 +25,7 @@ public class HttpHandler {
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 			session.parseBody(map);
-		} catch (IOException | ResponseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
         final String json = map.get("postData");
