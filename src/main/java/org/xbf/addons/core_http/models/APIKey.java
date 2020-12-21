@@ -14,7 +14,7 @@ public class APIKey extends SmartTableObjectNoKey {
 	
 	@Include
 	@Key
-	public String key;
+	public String apiKey;
 	
 	@Include
 	public int uid;

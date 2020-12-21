@@ -23,7 +23,7 @@ public class KeyManager {
 	}
 
 	public static APIKey getKey(String apiKey) {
-		return APIKey.getSmartTable().get(new FastMap<String, String>().add("key", apiKey));
+		return APIKey.getSmartTable().get(new FastMap<String, String>().add("apikey", apiKey));
 	}
 
 	public static boolean validateKey(String apiKey) {

@@ -1,12 +1,9 @@
 package org.xbf.addons.core_http;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
-import java.util.Set;
 
-import org.reflections.Reflections;
 import org.slf4j.LoggerFactory;
 import org.xbf.addons.core_http.models.APIKey;
 
@@ -62,6 +59,7 @@ public class APIServer extends NanoHTTPD {
 		
 		for (HttpHandler icls : handlers) {
 			Class<? extends HttpHandler> cls = icls.getClass();
+			System.out.println(icls.url);
 			if(url.startsWith(icls.url)) {
 			
 				if(icls.level != KeyLevel.NONE) {

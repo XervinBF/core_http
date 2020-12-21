@@ -19,5 +19,7 @@ public class HttpServerPlugin extends XervinJavaPlugin {
 		XBF.registerService(ApiService.class);
 	}
 	
-	
+	public static void main(String[] args) {
+		
+	}
 }

@@ -11,7 +11,7 @@ import fi.iki.elonen.NanoHTTPD.ResponseException;
 
 public class HttpHandler {
 
-	public String url = "/api/" + this.getClass().getName().toLowerCase();
+	public String url = "/api/" + this.getClass().getSimpleName().toLowerCase();
 
 	public KeyLevel level = KeyLevel.USER;
 	
