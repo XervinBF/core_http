@@ -39,6 +39,7 @@ public class APIServer extends NanoHTTPD {
 	@Override
 	public Response serve(IHTTPSession session) {
 		long start = System.currentTimeMillis();
+		try {
 		String url = session.getUri();
 		if(url.equals("/api/test")) {
 			return newFixedLengthResponse("OK");
@@ -111,7 +112,7 @@ public class APIServer extends NanoHTTPD {
 							} else if (p.getType().getSimpleName().equalsIgnoreCase("APIKey")) {
 								margs[i] = KeyManager.getKey(apiKey);
 							} else {
-								String n = p.getName();
+								String n = p.isAnnotationPresent(HttpParameter.class) ? p.getAnnotation(HttpParameter.class).value() : p.getName();
 								if((n.equalsIgnoreCase("id")) && !anyMatches) {
 									margs[i] = idPart;
 								}
@@ -176,6 +177,13 @@ public class APIServer extends NanoHTTPD {
 		Response res = newFixedLengthResponse(Status.NOT_FOUND, "text", "Could not find endpoint");
 		res.addHeader("Cache-Control", "no-cache");
 		return res;
+		} catch (Exception e) {
+			e.printStackTrace();
+			l.info("Returned 500 (" + (System.currentTimeMillis() - start) + " ms)");
+			Response res = newFixedLengthResponse(Status.INTERNAL_ERROR, "text", "An internal error occured\n" + e.getClass().getSimpleName());
+			res.addHeader("Cache-Control", "no-cache");
+			return res;
+		}
 	}
 	
 }
