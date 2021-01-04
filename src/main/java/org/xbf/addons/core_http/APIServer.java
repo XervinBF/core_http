@@ -5,7 +5,10 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 
 import org.slf4j.LoggerFactory;
+import org.xbf.addons.core_http.annotations.HttpParameter;
+import org.xbf.addons.core_http.annotations.Permission;
 import org.xbf.addons.core_http.models.APIKey;
+import org.xbf.core.Models.XUser;
 
 import com.google.gson.Gson;
 
@@ -62,7 +65,10 @@ public class APIServer extends NanoHTTPD {
 			Class<? extends HttpHandler> cls = icls.getClass();
 			System.out.println(icls.url);
 			if(url.startsWith(icls.url)) {
-			
+				if(cls.isAnnotationPresent(Permission.class)) {
+					String perm = cls.getAnnotation(Permission.class).value();
+					if(!new XUser(KeyManager.getKey(apiKey).uid).hasPermission(perm)) continue;
+				}
 				if(icls.level != KeyLevel.NONE) {
 					if(apiKey == null) {
 						Response res = newFixedLengthResponse(Status.UNAUTHORIZED, "text", "Supply api key.\nURL Parameters: apikey\n\tExample: /api/user/getusers?apikey=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\nHeaders: xkey\n\tExample xkey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -96,9 +102,14 @@ public class APIServer extends NanoHTTPD {
 				}
 
 				for (java.lang.reflect.Method m : cls.getMethods()) {
+					
 					String aurl = icls.url + "/" + m.getName().toLowerCase();
 					System.out.println(aurl);
 					if(url.equalsIgnoreCase(aurl) || (m.getName().equalsIgnoreCase("index") && !anyMatches)) {
+						if(m.isAnnotationPresent(Permission.class)) {
+							String perm = m.getAnnotation(Permission.class).value();
+							if(!new XUser(KeyManager.getKey(apiKey).uid).hasPermission(perm)) continue;
+						}
 						String idPart = url.replace(icls.url + "/", "");
 						Object[] margs = new Object[m.getParameterCount()];
 						Parameter[] ps = m.getParameters();

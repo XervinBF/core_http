@@ -7,7 +7,7 @@ import org.xbf.core.Plugins.XPlugin;
 import org.xbf.core.Plugins.XervinJavaPlugin;
 
 @XPlugin(name="core_http", displayname="XBF Core HTTP Server", description="An HTTP Server with addon support for XBF")
-@PluginVersion(currentVersion="1.0.1")
+@PluginVersion(currentVersion="1.1.0")
 @DependsOn(pluginName="xbf", minimumVersion="0.0.14")
 public class HttpServerPlugin extends XervinJavaPlugin {
 

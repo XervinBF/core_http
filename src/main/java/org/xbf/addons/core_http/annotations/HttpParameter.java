@@ -1,4 +1,4 @@
-package org.xbf.addons.core_http;
+package org.xbf.addons.core_http.annotations;
 
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
